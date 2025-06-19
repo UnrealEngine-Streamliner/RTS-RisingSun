@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2056
     height: 1205
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Inspector
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -943,9 +943,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: -57.983925, y: -85.43522, z: 58.058064}
+    m_Target: {x: -4.1689453, y: -73.29457, z: 36.252186}
     speed: 2
-    m_Value: {x: -57.983925, y: -85.43522, z: 58.058064}
+    m_Value: {x: -4.1689453, y: -73.29457, z: 36.252186}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -991,20 +991,20 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.27009377, y: -0.25328895, z: 0.07387964, w: 0.9259812}
+    m_Target: {x: 0.40156165, y: -0.16210449, z: 0.0724508, w: 0.8984601}
     speed: 2
-    m_Value: {x: 0.27009305, y: -0.2532883, z: 0.07387944, w: 0.9259788}
+    m_Value: {x: 0.40155977, y: -0.16210373, z: 0.07245047, w: 0.8984559}
   m_Size:
-    m_Target: 81.41406
+    m_Target: 78.5901
     speed: 2
-    m_Value: 81.41406
+    m_Value: 78.70817
   m_Ortho:
     m_Target: 0
     speed: 2
     m_Value: 0
   m_CameraSettings:
-    m_Speed: 1.9980009
-    m_SpeedNormalized: 0.99899995
+    m_Speed: 1.9970014
+    m_SpeedNormalized: 0.99849993
     m_SpeedMin: 0.001
     m_SpeedMax: 2
     m_EasingEnabled: 1
@@ -1070,23 +1070,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: 18fbffffaabb0000
+      m_SelectedIDs: acbb0000
+      m_LastClickedID: 48044
+      m_ExpandedIDs: 18fbffffacbb0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: World Collider Bounds
-        m_OriginalName: World Collider Bounds
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 49272
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_TrimLeadingAndTrailingWhitespace: 0
         m_ClientGUIView: {fileID: 8}
@@ -1245,7 +1245,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Physics Materials
+    - Assets
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1255,16 +1255,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Physics Materials
+  - Assets
   m_LastFoldersGridSize: 16
   m_LastProjectPath: /Users/tiger/Documents/Unity/RTS-RisingSun
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 0ace0000
-    m_LastClickedID: 52746
-    m_ExpandedIDs: 00000000b6cc000046cd000000ca9a3bffffff7f
+    m_SelectedIDs: bacc0000
+    m_LastClickedID: 52410
+    m_ExpandedIDs: 00000000bacc000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1293,7 +1293,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000b6cc0000
+    m_ExpandedIDs: 00000000bacc0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1321,7 +1321,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c62300009c5f0000026900000e6900000a69000032e30000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
