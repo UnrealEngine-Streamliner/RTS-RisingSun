@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2056
     height: 1205
   m_ShowMode: 4
-  m_Title: Inspector
+  m_Title: Hierarchy
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -943,9 +943,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: -4.1689453, y: -73.29457, z: 36.252186}
+    m_Target: {x: 14.228718, y: -85.439285, z: 68.83801}
     speed: 2
-    m_Value: {x: -4.1689453, y: -73.29457, z: 36.252186}
+    m_Value: {x: 14.228718, y: -85.439285, z: 68.83801}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -991,13 +991,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.40156165, y: -0.16210449, z: 0.0724508, w: 0.8984601}
+    m_Target: {x: 0.32859075, y: 0.0014124049, z: -0.00049302087, w: 0.9444767}
     speed: 2
-    m_Value: {x: 0.40155977, y: -0.16210373, z: 0.07245047, w: 0.8984559}
+    m_Value: {x: 0.32858905, y: 0.0014123977, z: -0.00049301836, w: 0.9444719}
   m_Size:
     m_Target: 78.5901
     speed: 2
-    m_Value: 78.70817
+    m_Value: 78.5901
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1070,9 +1070,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: acbb0000
-      m_LastClickedID: 48044
-      m_ExpandedIDs: 18fbffffacbb0000
+      m_SelectedIDs: d6b4ffff
+      m_LastClickedID: -19242
+      m_ExpandedIDs: 18fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1245,7 +1245,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets
+    - Assets/Scripts/Units
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1255,16 +1255,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets
+  - Assets/Scripts/Units
   m_LastFoldersGridSize: 16
   m_LastProjectPath: /Users/tiger/Documents/Unity/RTS-RisingSun
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: bacc0000
-    m_LastClickedID: 52410
-    m_ExpandedIDs: 00000000bacc000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 58.50415}
+    m_SelectedIDs: 12ce0000
+    m_LastClickedID: 52754
+    m_ExpandedIDs: 00000000becc000050cd00005ecd000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1293,7 +1293,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000bacc0000
+    m_ExpandedIDs: 00000000becc0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1321,25 +1321,25 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c62300009c5f0000026900000e6900000a69000032e30000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: Worker
+      m_OriginalName: Worker
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 52760
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_TrimLeadingAndTrailingWhitespace: 0
-      m_ClientGUIView: {fileID: 0}
+      m_ClientGUIView: {fileID: 10}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -1430,7 +1430,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 60
+  m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
