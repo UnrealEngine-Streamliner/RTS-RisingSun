@@ -1,11 +1,23 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class Worker : MonoBehaviour
+public class Worker : MonoBehaviour, ISelectable
 {
     [SerializeField] private Transform target;
+    [SerializeField] private DecalProjector selection;
     private NavMeshAgent agent;
+
+    public void Deselect()
+    {
+        selection.gameObject.SetActive(false);
+    }
+
+    public void Select()
+    {
+        selection.gameObject.SetActive(true);
+    }
 
     private void Awake()
     {

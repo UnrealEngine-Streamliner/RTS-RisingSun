@@ -7,6 +7,7 @@ public class PlayerInput : MonoBehaviour
 {
     [SerializeField] private Rigidbody cameraTarget;
     [SerializeField] private CinemachineCamera cinemachineCamera;
+    [SerializeField] private new Camera camera;
     [SerializeField] private CameraConfig cameraConfig;
 
     private CinemachineFollow cinemachineFollow;
@@ -14,6 +15,7 @@ public class PlayerInput : MonoBehaviour
     private float rotationStartTime;
     private Vector3 startingFollowOffset;
     private float maxRotationAmount;
+    private ISelectable selectedUnit;
 
     private void Awake()
     {
@@ -31,6 +33,32 @@ public class PlayerInput : MonoBehaviour
         HandleKeyboardInputMovement();
         HandleZooming();
         HandleRotation();
+        HandleSelectionUnit();
+    }
+
+    private void HandleSelectionUnit()
+    {
+        if (camera == null)
+        {
+            return;
+        }
+
+        Ray cameraRay = camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        if (Mouse.current.leftButton.wasReleasedThisFrame)
+        {
+            if (selectedUnit != null)
+                {
+                    selectedUnit.Deselect();
+                    selectedUnit = null;
+                }
+            if (Physics.Raycast(cameraRay, out RaycastHit hit, float.MaxValue, LayerMask.GetMask("Default"))
+             && hit.collider.TryGetComponent(out ISelectable selectable))
+            {
+
+                selectedUnit = selectable;
+                selectedUnit.Select();
+            }
+        }
     }
 
     private void HandleRotation()
