@@ -9,6 +9,7 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private CinemachineCamera cinemachineCamera;
     [SerializeField] private new Camera camera;
     [SerializeField] private CameraConfig cameraConfig;
+    [SerializeField] private LayerMask selectableUnitsLayer;
 
     private CinemachineFollow cinemachineFollow;
     private float zoomStartTime;
@@ -51,7 +52,7 @@ public class PlayerInput : MonoBehaviour
                     selectedUnit.Deselect();
                     selectedUnit = null;
                 }
-            if (Physics.Raycast(cameraRay, out RaycastHit hit, float.MaxValue, LayerMask.GetMask("Default"))
+            if (Physics.Raycast(cameraRay, out RaycastHit hit, float.MaxValue, selectableUnitsLayer)
              && hit.collider.TryGetComponent(out ISelectable selectable))
             {
 
