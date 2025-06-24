@@ -10,6 +10,7 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private new Camera camera;
     [SerializeField] private CameraConfig cameraConfig;
     [SerializeField] private LayerMask selectableUnitsLayer;
+    [SerializeField] private LayerMask floorLayers;
 
     private CinemachineFollow cinemachineFollow;
     private float zoomStartTime;
@@ -34,7 +35,24 @@ public class PlayerInput : MonoBehaviour
         HandleKeyboardInputMovement();
         HandleZooming();
         HandleRotation();
+        HandleMovingUnit();
         HandleSelectionUnit();
+    }
+
+    private void HandleMovingUnit()
+    {
+        if (selectedUnit == null || selectedUnit is not IMoveable moveable)
+        {
+            return;
+        }
+        Ray cameraRay = camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        if (Keyboard.current.mKey.isPressed)
+        {
+            if (Physics.Raycast(cameraRay, out RaycastHit hit, float.MaxValue, floorLayers))
+            {
+                moveable.Move(hit.point);
+            }
+        }
     }
 
     private void HandleSelectionUnit()
@@ -48,10 +66,10 @@ public class PlayerInput : MonoBehaviour
         if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
             if (selectedUnit != null)
-                {
-                    selectedUnit.Deselect();
-                    selectedUnit = null;
-                }
+            {
+                selectedUnit.Deselect();
+                selectedUnit = null;
+            }
             if (Physics.Raycast(cameraRay, out RaycastHit hit, float.MaxValue, selectableUnitsLayer)
              && hit.collider.TryGetComponent(out ISelectable selectable))
             {
