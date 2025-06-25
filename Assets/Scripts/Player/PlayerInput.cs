@@ -11,6 +11,9 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private CameraConfig cameraConfig;
     [SerializeField] private LayerMask selectableUnitsLayer;
     [SerializeField] private LayerMask floorLayers;
+    [SerializeField] private RectTransform selectedBox;
+
+    private Vector2 startingMousePosition;
 
     private CinemachineFollow cinemachineFollow;
     private float zoomStartTime;
@@ -37,6 +40,45 @@ public class PlayerInput : MonoBehaviour
         HandleRotation();
         HandleMovingUnit();
         HandleSelectionUnit();
+        HandleDragSelectionUnits();
+    }
+
+    private void HandleDragSelectionUnits()
+    {
+        if (selectedBox == null)
+        {
+            return;
+        }
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            // enable the UI
+            selectedBox.gameObject.SetActive(true);
+            // store start position
+            startingMousePosition = Mouse.current.position.ReadValue();
+        }
+        else if (Mouse.current.leftButton.isPressed && !Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            ResizeSelectionBox();
+        }
+        else if (Mouse.current.leftButton.wasReleasedThisFrame)
+        {
+            // select new units
+
+            // deselect non-included units
+
+            // disable the UI
+            selectedBox.gameObject.SetActive(false);
+        }
+    }
+
+    private void ResizeSelectionBox()
+    {
+        Vector2 mousePosition = Mouse.current.position.ReadValue();
+        float width = mousePosition.x - startingMousePosition.x;
+        float height = mousePosition.y - startingMousePosition.y;
+
+        selectedBox.anchoredPosition = startingMousePosition + new Vector2(width / 2, height / 2);
+        selectedBox.sizeDelta = new Vector2(Mathf.Abs(width), Mathf.Abs(height));
     }
 
     private void HandleMovingUnit()
