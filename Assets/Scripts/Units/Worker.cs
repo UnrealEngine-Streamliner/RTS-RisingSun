@@ -21,6 +21,7 @@ public class Worker : MonoBehaviour, ISelectable, IMoveable
     public void Select()
     {
         selection.gameObject.SetActive(true);
+        Bus<UnitSelectedEvent>.Raise(new UnitSelectedEvent(this));
     }
 
     private void Awake()

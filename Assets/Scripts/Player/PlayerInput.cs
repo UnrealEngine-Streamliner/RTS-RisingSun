@@ -31,6 +31,13 @@ public class PlayerInput : MonoBehaviour
 
         startingFollowOffset = cinemachineFollow.FollowOffset;
         maxRotationAmount = Mathf.Abs(cinemachineFollow.FollowOffset.z);
+
+        Bus<UnitSelectedEvent>.OnEvent += HandleUnitSelected;
+    }
+
+    private void OnDestroy()
+    {
+        Bus<UnitSelectedEvent>.OnEvent -= HandleUnitSelected;
     }
 
     private void Update()
@@ -41,6 +48,15 @@ public class PlayerInput : MonoBehaviour
         HandleMovingUnit();
         HandleSelectionUnit();
         HandleDragSelectionUnits();
+    }
+
+    private void HandleUnitSelected(UnitSelectedEvent evt)
+    {
+        if (selectedUnit != null)
+        {
+            selectedUnit.Deselect();
+        }
+        selectedUnit = evt.Unit;
     }
 
     private void HandleDragSelectionUnits()
@@ -115,8 +131,6 @@ public class PlayerInput : MonoBehaviour
             if (Physics.Raycast(cameraRay, out RaycastHit hit, float.MaxValue, selectableUnitsLayer)
              && hit.collider.TryGetComponent(out ISelectable selectable))
             {
-
-                selectedUnit = selectable;
                 selectedUnit.Select();
             }
         }
