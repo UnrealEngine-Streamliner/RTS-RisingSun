@@ -10,7 +10,11 @@ public class Worker : MonoBehaviour, ISelectable, IMoveable
 
     public void Deselect()
     {
-        selection.gameObject.SetActive(false);
+        if (selection != null)
+        {
+            selection.gameObject.SetActive(false);
+        }
+        Bus<UnitDeselectedEvent>.Raise(new UnitDeselectedEvent(this));
     }
 
     public void Move(Vector3 destination)

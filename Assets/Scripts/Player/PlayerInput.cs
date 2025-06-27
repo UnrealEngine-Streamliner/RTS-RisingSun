@@ -33,11 +33,13 @@ public class PlayerInput : MonoBehaviour
         maxRotationAmount = Mathf.Abs(cinemachineFollow.FollowOffset.z);
 
         Bus<UnitSelectedEvent>.OnEvent += HandleUnitSelected;
+        Bus<UnitDeselectedEvent>.OnEvent += HandleUnitDeselected;
     }
 
     private void OnDestroy()
     {
         Bus<UnitSelectedEvent>.OnEvent -= HandleUnitSelected;
+        Bus<UnitDeselectedEvent>.OnEvent -= HandleUnitDeselected;
     }
 
     private void Update()
@@ -52,11 +54,12 @@ public class PlayerInput : MonoBehaviour
 
     private void HandleUnitSelected(UnitSelectedEvent evt)
     {
-        if (selectedUnit != null)
-        {
-            selectedUnit.Deselect();
-        }
         selectedUnit = evt.Unit;
+    }
+
+    private void HandleUnitDeselected(UnitDeselectedEvent evt)
+    {
+        selectedUnit = null;
     }
 
     private void HandleDragSelectionUnits()
@@ -123,11 +126,7 @@ public class PlayerInput : MonoBehaviour
         Ray cameraRay = camera.ScreenPointToRay(Mouse.current.position.ReadValue());
         if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
-            if (selectedUnit != null)
-            {
-                selectedUnit.Deselect();
-                selectedUnit = null;
-            }
+            selectedUnit?.Deselect();
             if (Physics.Raycast(cameraRay, out RaycastHit hit, float.MaxValue, selectableUnitsLayer)
              && hit.collider.TryGetComponent(out ISelectable selectable))
             {
