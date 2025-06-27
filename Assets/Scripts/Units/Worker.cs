@@ -20,18 +20,15 @@ public class Worker : MonoBehaviour, ISelectable, IMoveable
 
     public void Select()
     {
-        selection.gameObject.SetActive(true);
+        if (selection != null)
+        {
+            selection.gameObject.SetActive(true);
+        }
         Bus<UnitSelectedEvent>.Raise(new UnitSelectedEvent(this));
     }
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-    
     }
 }

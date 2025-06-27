@@ -131,7 +131,7 @@ public class PlayerInput : MonoBehaviour
             if (Physics.Raycast(cameraRay, out RaycastHit hit, float.MaxValue, selectableUnitsLayer)
              && hit.collider.TryGetComponent(out ISelectable selectable))
             {
-                selectedUnit.Select();
+                selectable.Select();
             }
         }
     }
