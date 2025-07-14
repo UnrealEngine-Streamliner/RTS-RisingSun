@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -20,7 +21,9 @@ public class PlayerInput : MonoBehaviour
     private float rotationStartTime;
     private Vector3 startingFollowOffset;
     private float maxRotationAmount;
-    private ISelectable selectedUnit;
+    private List<ISelectable> selectedUnits = new(12);
+    private HashSet<AbstractUnit> addedUnits = new(24);
+    private HashSet<AbstractUnit> aliveUnits = new(100);
 
     private void Awake()
     {
@@ -34,12 +37,14 @@ public class PlayerInput : MonoBehaviour
 
         Bus<UnitSelectedEvent>.OnEvent += HandleUnitSelected;
         Bus<UnitDeselectedEvent>.OnEvent += HandleUnitDeselected;
+        Bus<UnitSpawnEvent>.OnEvent += HandleUnitSpawned;
     }
 
     private void OnDestroy()
     {
         Bus<UnitSelectedEvent>.OnEvent -= HandleUnitSelected;
         Bus<UnitDeselectedEvent>.OnEvent -= HandleUnitDeselected;
+        Bus<UnitSpawnEvent>.OnEvent -= HandleUnitSpawned;
     }
 
     private void Update()
@@ -52,15 +57,11 @@ public class PlayerInput : MonoBehaviour
         HandleDragSelectionUnits();
     }
 
-    private void HandleUnitSelected(UnitSelectedEvent evt)
-    {
-        selectedUnit = evt.Unit;
-    }
+    private void HandleUnitSpawned(UnitSpawnEvent evt) => aliveUnits.Add(evt.Unit);
 
-    private void HandleUnitDeselected(UnitDeselectedEvent evt)
-    {
-        selectedUnit = null;
-    }
+    private void HandleUnitSelected(UnitSelectedEvent evt) => selectedUnits.Add(evt.Unit);
+
+    private void HandleUnitDeselected(UnitDeselectedEvent evt) => selectedUnits.Remove(evt.Unit);
 
     private void HandleDragSelectionUnits()
     {
@@ -70,27 +71,48 @@ public class PlayerInput : MonoBehaviour
         }
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
+            selectedBox.sizeDelta = Vector2.zero;
             // enable the UI
             selectedBox.gameObject.SetActive(true);
             // store start position
             startingMousePosition = Mouse.current.position.ReadValue();
+            addedUnits.Clear();
         }
         else if (Mouse.current.leftButton.isPressed && !Mouse.current.leftButton.wasPressedThisFrame)
         {
-            ResizeSelectionBox();
+            Bounds selectionBoxBounds = ResizeSelectionBox();
+            foreach (AbstractUnit unit in aliveUnits)
+            {
+                Vector2 unitPosition = camera.WorldToScreenPoint(unit.transform.position);
+                if (selectionBoxBounds.Contains(unitPosition))
+                {
+                    // we want to select the unit when the mouse is released
+                    addedUnits.Add(unit);
+                }
+            }
         }
         else if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
-            // select new units
-
-            // deselect non-included units
-
+            DeselectAllUnits();
+            foreach (AbstractUnit unit in addedUnits)
+            {
+                unit.Select();
+            }
             // disable the UI
-            selectedBox.gameObject.SetActive(false);
+                selectedBox.gameObject.SetActive(false);
         }
     }
 
-    private void ResizeSelectionBox()
+    private void DeselectAllUnits()
+    {
+        ISelectable[] currentlySelectedUnits = selectedUnits.ToArray();
+        foreach (ISelectable selectable in currentlySelectedUnits)
+        {
+            selectable.Deselect();
+        }
+    }
+
+    private Bounds ResizeSelectionBox()
     {
         Vector2 mousePosition = Mouse.current.position.ReadValue();
         float width = mousePosition.x - startingMousePosition.x;
@@ -98,11 +120,12 @@ public class PlayerInput : MonoBehaviour
 
         selectedBox.anchoredPosition = startingMousePosition + new Vector2(width / 2, height / 2);
         selectedBox.sizeDelta = new Vector2(Mathf.Abs(width), Mathf.Abs(height));
+        return new Bounds(selectedBox.anchoredPosition, selectedBox.sizeDelta);
     }
 
     private void HandleMovingUnit()
     {
-        if (selectedUnit == null || selectedUnit is not IMoveable moveable)
+        if (selectedUnits.Count == 0)
         {
             return;
         }
@@ -111,14 +134,20 @@ public class PlayerInput : MonoBehaviour
         {
             if (Physics.Raycast(cameraRay, out RaycastHit hit, float.MaxValue, floorLayers))
             {
-                moveable.Move(hit.point);
+                foreach (ISelectable selectable in selectedUnits)
+                {
+                    if (selectable is IMoveable moveable)
+                    {
+                        moveable.Move(hit.point);
+                    }
+                }
             }
         }
     }
 
     private void HandleSelectionUnit()
     {
-        if (camera == null)
+       /* if (camera == null)
         {
             return;
         }
@@ -132,7 +161,7 @@ public class PlayerInput : MonoBehaviour
             {
                 selectable.Select();
             }
-        }
+        }*/
     }
 
     private void HandleRotation()
