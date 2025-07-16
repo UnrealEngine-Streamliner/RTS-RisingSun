@@ -71,36 +71,51 @@ public class PlayerInput : MonoBehaviour
         }
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            selectedBox.sizeDelta = Vector2.zero;
-            // enable the UI
-            selectedBox.gameObject.SetActive(true);
-            // store start position
-            startingMousePosition = Mouse.current.position.ReadValue();
-            addedUnits.Clear();
+            HandleMouseDown();
         }
         else if (Mouse.current.leftButton.isPressed && !Mouse.current.leftButton.wasPressedThisFrame)
         {
-            Bounds selectionBoxBounds = ResizeSelectionBox();
-            foreach (AbstractUnit unit in aliveUnits)
-            {
-                Vector2 unitPosition = camera.WorldToScreenPoint(unit.transform.position);
-                if (selectionBoxBounds.Contains(unitPosition))
-                {
-                    // we want to select the unit when the mouse is released
-                    addedUnits.Add(unit);
-                }
-            }
+            HandleMouseDrag();
         }
         else if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
-            DeselectAllUnits();
-            foreach (AbstractUnit unit in addedUnits)
-            {
-                unit.Select();
-            }
-            // disable the UI
-                selectedBox.gameObject.SetActive(false);
+            HandleMouseUp();
         }
+    }
+
+    private void HandleMouseUp()
+    {
+        DeselectAllUnits();
+        foreach (AbstractUnit unit in addedUnits)
+        {
+            unit.Select();
+        }
+        // disable the UI
+        selectedBox.gameObject.SetActive(false);
+    }
+
+    private void HandleMouseDrag()
+    {
+        Bounds selectionBoxBounds = ResizeSelectionBox();
+        foreach (AbstractUnit unit in aliveUnits)
+        {
+            Vector2 unitPosition = camera.WorldToScreenPoint(unit.transform.position);
+            if (selectionBoxBounds.Contains(unitPosition))
+            {
+                // we want to select the unit when the mouse is released
+                addedUnits.Add(unit);
+            }
+        }
+    }
+
+    private void HandleMouseDown()
+    {
+        selectedBox.sizeDelta = Vector2.zero;
+        // enable the UI
+        selectedBox.gameObject.SetActive(true);
+        // store start position
+        startingMousePosition = Mouse.current.position.ReadValue();
+        addedUnits.Clear();
     }
 
     private void DeselectAllUnits()
