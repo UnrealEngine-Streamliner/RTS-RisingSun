@@ -53,7 +53,6 @@ public class PlayerInput : MonoBehaviour
         HandleZooming();
         HandleRotation();
         HandleMovingUnit();
-        HandleSelectionUnit();
         HandleDragSelectionUnits();
     }
 
@@ -85,7 +84,11 @@ public class PlayerInput : MonoBehaviour
 
     private void HandleMouseUp()
     {
-        DeselectAllUnits();
+        if (!Keyboard.current.shiftKey.isPressed)
+        {
+            DeselectAllUnits();
+        }
+        HandleSelectionUnit();
         foreach (AbstractUnit unit in addedUnits)
         {
             unit.Select();
@@ -162,21 +165,17 @@ public class PlayerInput : MonoBehaviour
 
     private void HandleSelectionUnit()
     {
-       /* if (camera == null)
+       if (camera == null)
         {
             return;
         }
 
         Ray cameraRay = camera.ScreenPointToRay(Mouse.current.position.ReadValue());
-        if (Mouse.current.leftButton.wasReleasedThisFrame)
+        if (Physics.Raycast(cameraRay, out RaycastHit hit, float.MaxValue, selectableUnitsLayer)
+            && hit.collider.TryGetComponent(out ISelectable selectable))
         {
-            selectedUnit?.Deselect();
-            if (Physics.Raycast(cameraRay, out RaycastHit hit, float.MaxValue, selectableUnitsLayer)
-             && hit.collider.TryGetComponent(out ISelectable selectable))
-            {
-                selectable.Select();
-            }
-        }*/
+            selectable.Select();
+        }
     }
 
     private void HandleRotation()
